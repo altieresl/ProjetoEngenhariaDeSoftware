@@ -1,0 +1,5 @@
+O arquivo deverá conter informações detalhadas o suficiente para que 
+toda a equipe entenda o que foi solicitado, sem que seja necessário 
+algum tipo de interpretação, discernimento ou adivinhação. Além disso é 
+necessário especificar detalhadamente a prioridade de cada um dos 
+requisitos.
