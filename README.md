@@ -1,7 +1,7 @@
 # SisMed - Sistema de gerenciamento de clínicas
 ### Descrição
 > Sistema que gerencia uma rede de clínicas.
-### Requisitos
+### Pré-requisitos
 ```
 Um computador com o navegador Google Chrome ou Mozilla Firefox instalado e atualizado, com Javascript habilitado.
 ```
