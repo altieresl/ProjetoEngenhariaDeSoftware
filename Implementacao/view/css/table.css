@@ -1,0 +1,37 @@
+.tabelaVisao
+{
+	border: 1px solid #b3b3b3;
+	width: 100%;
+}
+.tabelaVisao td
+{
+	border: 1px solid #b3b3b3;
+	padding: 2px 3px;
+}
+.tabelaVisao th
+{
+	border: 1px solid #b3b3b3;
+	padding: 2px 3px;
+	background-color: #0092be;
+	color: #FFF;
+	border-left: 1px solid #fff;
+	border-right: 1px solid #fff;
+	font-weight: 500;
+}
+.tabelaVisao th:first-child
+{
+	border-left: 0;
+}
+.tabelaVisao th:last-child
+{
+	border-right: 0;
+}
+.container
+{
+	width: 66.5%;
+	margin-left: 30%;
+}
+.tabelaVisao td a
+{
+	color: #333;
+}
