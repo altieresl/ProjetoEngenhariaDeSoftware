@@ -41,4 +41,7 @@ GitHub.sublime-settings
 # Ignore all local history of files
 .history
 
+# Ignore constants file
+.config.php
+
 # Gerado utilizando https://www.gitignore.io
