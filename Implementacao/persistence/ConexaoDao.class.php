@@ -2,10 +2,20 @@
 // ini_set('display_errors', 1);ini_set('display_startup_errors', 1);error_reporting(E_ALL);
 class ConexaoDao
 {
+	private static $instance;
 	private $obj;
-	public function __construct($host, $user, $pass, $db)
+	private function __construct($host, $user, $pass, $db)
 	{
 		$this->obj = mysqli_connect($host, $user, $pass, $db) or die("Erro ao conectar ao banco de dados.");
+	}
+
+	public static function getInstance($host, $user, $pass, $db)
+	{
+		if (self::$instance == NULL)
+		{
+			self::$instance = new self($host, $user, $pass, $db);
+		}
+		return self::$instance;
 	}
 
 	public function consultar($query)

@@ -6,7 +6,7 @@ class PlanosDao
 {
 	public static function getPlanos()
 	{
-		$objDao = new ConexaoDao(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
 		$sql = "
 		SELECT
 				*

@@ -10,7 +10,7 @@ class DepartamentoDao {
 	public function getDepartamentos()
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
-		$objDao = new ConexaoDao(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
 		$query = 
 		"SELECT
 				dep.idDepartamento,

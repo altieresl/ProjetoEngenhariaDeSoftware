@@ -11,7 +11,7 @@ class FuncionarioDao {
 	public function setMedico(Medico $medico)
 	{
 		require_once("../model/Medico.class.php");
-		$objDao = new ConexaoDao(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
 		if($medico->getIdFuncionario() == NULL)
 		{
 			$query = 
@@ -44,7 +44,7 @@ class FuncionarioDao {
 	public function setEnfermeiro(Enfermeiro $enfermeiro)
 	{
 		require_once("../model/Enfermeiro.class.php");
-		$objDao = new ConexaoDao(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
 		if($enfermeiro->getIdFuncionario() == NULL)
 		{
 			$query = 
@@ -77,7 +77,7 @@ class FuncionarioDao {
 	public function setTecnicoAdministrativo(TecnicoAdministrativo $tecnicoAdministrativo)
 	{
 		require_once("../model/TecnicoAdministrativo.class.php");
-		$objDao = new ConexaoDao(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
 		if($tecnicoAdministrativo->getIdFuncionario() == NULL)
 		{
 			$query = 
@@ -110,7 +110,7 @@ class FuncionarioDao {
 	public function setAssistenteServicosGerais(AssistenteServicosGerais $assistenteServicosGerais)
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
-		$objDao = new ConexaoDao(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
 		if($assistenteServicosGerais->getIdFuncionario() == NULL)
 		{
 			$query = 
@@ -142,7 +142,7 @@ class FuncionarioDao {
 	public function getFuncionarios($nomeFuncionario = NULL, $tipoFuncionario = NULL)
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
-		$objDao = new ConexaoDao(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
 		$query = 
 		"SELECT
 				func.idFuncionario,
@@ -208,7 +208,7 @@ class FuncionarioDao {
 	public function getInfoFuncionario($codFuncionario, $tipoFuncionario)
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
-		$objDao = new ConexaoDao(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
 		$query = 
 		"SELECT
 				func.idFuncionario,
@@ -265,7 +265,7 @@ class FuncionarioDao {
 	public function setDeletarFuncionario($codFuncionario)
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
-		$objDao = new ConexaoDao(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
 		$query =
 		"DELETE FROM funcionario
 			WHERE idFuncionario = ".$codFuncionario;
