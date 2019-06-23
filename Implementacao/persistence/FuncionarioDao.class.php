@@ -1,18 +1,17 @@
 <?php 
 // ini_set('display_errors', 1);ini_set('display_startup_errors', 1);error_reporting(E_ALL);
-require_once("../persistence/ConexaoDao.class.php");
-require_once("../persistence/app.config.php");
+require_once("../persistence/ConexaoDao.class.php");//Classe de conexão com o banco
+require_once("../persistence/app.config.php");//Arquivo com as constantes de conexão com banco de dados
 
 class FuncionarioDao {
 	public function __construct() {
-
 	}
 
-	public function setMedico(Medico $medico)
+	public function setMedico(Medico $medico)//Função que cadastra ou atualiza o registro de um médico, recebe um objeto da classe Medico
 	{
 		require_once("../model/Medico.class.php");
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
-		if($medico->getIdFuncionario() == NULL)
+		if($medico->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
 			$query = 
 			"INSERT INTO funcionario (nome, salario, idDepartamento)
@@ -25,7 +24,7 @@ class FuncionarioDao {
 					('".$medico->getEspecializacao()."',
 					LAST_INSERT_ID());
 			";
-		}else
+		}else//Caso não seja nulo atualizamos o registro atual com o tal id do funcionário
 		{
 			$query = "UPDATE funcionario
 				SET nome = '".$medico->getNome()."',
@@ -41,11 +40,11 @@ class FuncionarioDao {
 		return $resultado;
 	}
 
-	public function setEnfermeiro(Enfermeiro $enfermeiro)
+	public function setEnfermeiro(Enfermeiro $enfermeiro)//Função que cadastra ou atualiza o registro de um enfermeiro
 	{
 		require_once("../model/Enfermeiro.class.php");
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
-		if($enfermeiro->getIdFuncionario() == NULL)
+		if($enfermeiro->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
 			$query = 
 			"INSERT INTO funcionario (nome, salario, idDepartamento)
@@ -58,7 +57,7 @@ class FuncionarioDao {
 					('".$enfermeiro->getAla()."',
 					LAST_INSERT_ID());
 			";
-		}else
+		}else//Caso não seja nulo atualizamos o registro atual com o tal id do funcionário
 		{
 			$query = "UPDATE funcionario
 				SET nome = '".$enfermeiro->getNome()."',
@@ -74,11 +73,11 @@ class FuncionarioDao {
 		$resultado = $objDao->multiQuery($query);
 		return $resultado;
 	}
-	public function setTecnicoAdministrativo(TecnicoAdministrativo $tecnicoAdministrativo)
+	public function setTecnicoAdministrativo(TecnicoAdministrativo $tecnicoAdministrativo)//Função que cadastra ou atualiza o registro de um técnico administrativo, recebe um objeto da classe TecnicoAdministrativo
 	{
 		require_once("../model/TecnicoAdministrativo.class.php");
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
-		if($tecnicoAdministrativo->getIdFuncionario() == NULL)
+		if($tecnicoAdministrativo->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
 			$query = 
 			"INSERT INTO funcionario (nome, salario, idDepartamento)
@@ -91,7 +90,7 @@ class FuncionarioDao {
 					('".$tecnicoAdministrativo->getSetor()."',
 					LAST_INSERT_ID());
 			";
-		}else
+		}else//Caso não seja nulo atualizamos o registro atual com o tal id do funcionário
 		{
 			$query = "UPDATE funcionario
 				SET nome = '".$tecnicoAdministrativo->getNome()."',
@@ -107,11 +106,11 @@ class FuncionarioDao {
 		$resultado = $objDao->multiQuery($query);
 		return $resultado;
 	}
-	public function setAssistenteServicosGerais(AssistenteServicosGerais $assistenteServicosGerais)
+	public function setAssistenteServicosGerais(AssistenteServicosGerais $assistenteServicosGerais)//Função que cadastra ou atualiza o registro de um assistente de serviços gerais, recebe um objeto da classe AssistenteServicosGerais
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
-		if($assistenteServicosGerais->getIdFuncionario() == NULL)
+		if($assistenteServicosGerais->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
 			$query = 
 			"INSERT INTO funcionario (nome, salario, idDepartamento)
@@ -124,7 +123,7 @@ class FuncionarioDao {
 					('".$assistenteServicosGerais->getFuncao()."',
 					LAST_INSERT_ID());
 			";
-		}else
+		}else//Caso não seja nulo atualizamos o registro atual com o tal id do funcionário
 		{
 			$query = "UPDATE funcionario
 				SET nome = '".$assistenteServicosGerais->getNome()."',
@@ -139,7 +138,7 @@ class FuncionarioDao {
 		$resultado = $objDao->multiQuery($query);
 		return $resultado;
 	}
-	public function getFuncionarios($nomeFuncionario = NULL, $tipoFuncionario = NULL)
+	public function getFuncionarios($nomeFuncionario = NULL, $tipoFuncionario = NULL) //Função que retorna um funcionário e seu tipo(médico, enfermeiro e etc)
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
@@ -181,7 +180,7 @@ class FuncionarioDao {
 		{
 			$query .= "	AND func.nome LIKE '%".$nomeFuncionario."%' ";
 		}
-		if($tipoFuncionario != NULL and $tipoFuncionario != -1)
+		if($tipoFuncionario != NULL and $tipoFuncionario != -1)//Caso o tipo de funcionário já tenha sido passado, busca especificamente pelo tal tipo
 		{
 			$queryTemp = "";
 			switch ($tipoFuncionario)
@@ -205,7 +204,7 @@ class FuncionarioDao {
 		$resultado = $objDao->consultar($query);
 		return $resultado;
 	}
-	public function getInfoFuncionario($codFuncionario, $tipoFuncionario)
+	public function getInfoFuncionario($codFuncionario, $tipoFuncionario)//Busca por um funcionário especifico pelo seu código
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
@@ -236,7 +235,7 @@ class FuncionarioDao {
 			LEFT JOIN assistenteServicosGerais assist ON assist.idFuncionario = func.idFuncionario
 			WHERE (med.idFuncionario IS NOT NULL OR enf.idFuncionario IS NOT NULL OR tec.idFuncionario IS NOT NULL OR assist.idFuncionario IS NOT NULL)
 				AND func.idFuncionario = ".$codFuncionario." ";
-		if($tipoFuncionario != NULL)
+		if($tipoFuncionario != NULL)//Caso o tipo de funcionário já tenha sido passado, busca especificamente pelo tal tipo
 		{
 			$queryTemp = "";
 			switch ($tipoFuncionario)
@@ -262,7 +261,7 @@ class FuncionarioDao {
 		return $resultado;
 	}
 
-	public function setDeletarFuncionario($codFuncionario)
+	public function setDeletarFuncionario($codFuncionario)//Deleta um funcionário
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
