@@ -27,7 +27,6 @@ Projetar um sistema integrado que possibilitará a empresa um aumento na produti
 ### Regras de uso do git
 - Ao dar commit o membro da equipe deverá selecionar apenas os arquivos que realmente foram editados, é obrigatório que o membro da equipe insira uma mensagem que descreva as alterações no arquivo, visando posteriormente a possibilidade de rastrear as alterações realizadas no mesmo, é opcional a inserção de um comando para fechar a tarefa relacionada (ex: closes #999), já que para realizar um commit não necessáriamente o desenvolvedor deve ter solucionado o problema.
 - Uma nova branch só será utilizada caso a equipe veja alguma necessidade de testar temporariamente alguma possível grande alteração no projeto, visando uma rápida tomada de decisão sobre a implementação do projeto, resultando em um merge com a branch master, para que toda a equipe volte a trabalhar apenas com a branch principal.
-- O arquivo .gitignore foi criado utilizando o serviço gitignore.io, visando não realizar commit de arquivos com as extensões especificadas no mesmo, nesse projeto, o utilizamos para não realizar o commit de arquivos dos editores de texto/IDE(Sublime e VS Code) e do arquivo contendo as credenciais do banco de dados.
 
 ### Tecnologias
 - PHP 7.2
