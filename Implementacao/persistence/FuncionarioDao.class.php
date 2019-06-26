@@ -5,12 +5,17 @@ require_once("../persistence/app.config.php");//Arquivo com as constantes de con
 
 class FuncionarioDao {
 	public function __construct() {
+
 	}
 
-	public function setMedico(Medico $medico)//Função que cadastra ou atualiza o registro de um médico, recebe um objeto da classe Medico
+	/**
+	*	@param Medico objeto da classe Medico
+	*	@return boolean status da execução da query que indica se o médico foi setado com sucesso ou não
+	*/
+	public function setMedico(Medico $medico)
 	{
 		require_once("../model/Medico.class.php");
-		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		if($medico->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
 			$query = 
@@ -40,10 +45,14 @@ class FuncionarioDao {
 		return $resultado;
 	}
 
-	public function setEnfermeiro(Enfermeiro $enfermeiro)//Função que cadastra ou atualiza o registro de um enfermeiro
+	/**
+	*	@param Enfermeiro objeto da classe Enfermeiro
+	*	@return boolean status da execução da query que indica se o enfermeiro foi setado com sucesso ou não
+	*/
+	public function setEnfermeiro(Enfermeiro $enfermeiro)
 	{
 		require_once("../model/Enfermeiro.class.php");
-		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		if($enfermeiro->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
 			$query = 
@@ -73,10 +82,15 @@ class FuncionarioDao {
 		$resultado = $objDao->multiQuery($query);
 		return $resultado;
 	}
-	public function setTecnicoAdministrativo(TecnicoAdministrativo $tecnicoAdministrativo)//Função que cadastra ou atualiza o registro de um técnico administrativo, recebe um objeto da classe TecnicoAdministrativo
+
+	/**
+	*	@param TecnicoAdministrativo objeto da classe TecnicoAdministrativo
+	*	@return boolean status da execução da query que indica se o técnico foi setado com sucesso ou não
+	*/
+	public function setTecnicoAdministrativo(TecnicoAdministrativo $tecnicoAdministrativo)
 	{
 		require_once("../model/TecnicoAdministrativo.class.php");
-		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		if($tecnicoAdministrativo->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
 			$query = 
@@ -106,10 +120,16 @@ class FuncionarioDao {
 		$resultado = $objDao->multiQuery($query);
 		return $resultado;
 	}
-	public function setAssistenteServicosGerais(AssistenteServicosGerais $assistenteServicosGerais)//Função que cadastra ou atualiza o registro de um assistente de serviços gerais, recebe um objeto da classe AssistenteServicosGerais
+
+
+	/**
+	*	@param AssistenteServicosGerais objeto da classe AssistenteServicosGerais
+	*	@return boolean status da execução da query que indica se o assistente foi setado com sucesso ou não
+	*/
+	public function setAssistenteServicosGerais(AssistenteServicosGerais $assistenteServicosGerais)
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
-		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		if($assistenteServicosGerais->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
 			$query = 
@@ -138,10 +158,16 @@ class FuncionarioDao {
 		$resultado = $objDao->multiQuery($query);
 		return $resultado;
 	}
-	public function getFuncionarios($nomeFuncionario = NULL, $tipoFuncionario = NULL) //Função que retorna um funcionário e seu tipo(médico, enfermeiro e etc)
+
+	/**
+	*	@param string $nomeFuncionario parte do nome do funcionário para buscar no banco de dados
+	*	@param int $tipoFuncionario código do tipo de funcionario 
+	*	@return object objeto do mysqli com os resultados da pesquisa (mysqli_result)
+	*/
+	public function getFuncionarios($nomeFuncionario = NULL, $tipoFuncionario = NULL)
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
-		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		$query = 
 		"SELECT
 				func.idFuncionario,
@@ -180,7 +206,7 @@ class FuncionarioDao {
 		{
 			$query .= "	AND func.nome LIKE '%".$nomeFuncionario."%' ";
 		}
-		if($tipoFuncionario != NULL and $tipoFuncionario != -1)//Caso o tipo de funcionário já tenha sido passado, busca especificamente pelo tal tipo
+		if($tipoFuncionario != NULL and $tipoFuncionario != -1)
 		{
 			$queryTemp = "";
 			switch ($tipoFuncionario)
@@ -202,12 +228,19 @@ class FuncionarioDao {
 		}
 		// die("<pre>$query</pre>");
 		$resultado = $objDao->consultar($query);
+		// var_dump($resultado);
 		return $resultado;
 	}
-	public function getInfoFuncionario($codFuncionario, $tipoFuncionario)//Busca por um funcionário especifico pelo seu código
+
+	/**
+	*	@param int $codFuncionario código do funcionário para buscar no banco de dados
+	*	@param int $tipoFuncionario código do tipo de funcionario 
+	*	@return object objeto do mysqli com o resultado da pesquisa (mysqli_result)
+	*/
+	public function getInfoFuncionario($codFuncionario, $tipoFuncionario)
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
-		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		$query = 
 		"SELECT
 				func.idFuncionario,
@@ -235,7 +268,7 @@ class FuncionarioDao {
 			LEFT JOIN assistenteServicosGerais assist ON assist.idFuncionario = func.idFuncionario
 			WHERE (med.idFuncionario IS NOT NULL OR enf.idFuncionario IS NOT NULL OR tec.idFuncionario IS NOT NULL OR assist.idFuncionario IS NOT NULL)
 				AND func.idFuncionario = ".$codFuncionario." ";
-		if($tipoFuncionario != NULL)//Caso o tipo de funcionário já tenha sido passado, busca especificamente pelo tal tipo
+		if($tipoFuncionario != NULL)
 		{
 			$queryTemp = "";
 			switch ($tipoFuncionario)
@@ -261,15 +294,27 @@ class FuncionarioDao {
 		return $resultado;
 	}
 
-	public function setDeletarFuncionario($codFuncionario)//Deleta um funcionário
+	/**
+	*	@param int $codFuncionario código do funcionário para buscar no banco de dados
+	*	@return object boolean status da execução da query que indica se o médico foi setado com sucesso ou não
+	*/
+	public function setDeletarFuncionario($codFuncionario)
 	{
 		require_once("../model/AssistenteServicosGerais.class.php");
-		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		$query =
-		"DELETE FROM funcionario
+		"DELETE FROM medico
+			WHERE idFuncionario = ".$codFuncionario.";
+		DELETE FROM enfermeiro
+			WHERE idFuncionario = ".$codFuncionario.";
+		DELETE FROM assistenteServicosGerais
+			WHERE idFuncionario = ".$codFuncionario.";
+		DELETE FROM tecnicoAdministrativo
+			WHERE idFuncionario = ".$codFuncionario.";
+		DELETE FROM funcionario
 			WHERE idFuncionario = ".$codFuncionario;
 		// die("<pre>$query</pre>");
-		$resultado = $objDao->executar($query);
+		$resultado = $objDao->multiQuery($query);
 		return $resultado;
 	}
 }
