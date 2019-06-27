@@ -68,8 +68,7 @@
 				<p>Função:</p>
 				<div class="divCampo">
 					<select name="funcao" id="funcao" class="form-control">
-						<option value="Secretário">Secretário</option>
-						<option value="2"></option>
+						<option value="Faxineiro">Faxineiro</option>
 					</select>
 				</div>
 			</div>
@@ -77,15 +76,18 @@
 				<p>Ala:</p>
 				<div class="divCampo">
 					<select name="ala" id="ala" class="form-control">
-						<option value="1">Secretário</option>
-						<option value="2"></option>
+						<option value="Sul">Sul</option>
+						<option value="Norte">Norte</option>
 					</select>
 				</div>
 			</div>
 			<div class="item especifico especificoTecnicoAdministrativo">
 				<p>Setor:</p>
 				<div class="divCampo">
-					<input type="text" name="setor" class="form-control">
+					<select name="setor" id="setor" class="form-control">
+						<option value="Secretaria">Secretaria</option>
+						<option value="Diretoria">Diretoria</option>
+					</select>
 				</div>
 			</div>
 			<div class="right">

@@ -51,7 +51,7 @@
 							$htmlPlanos = "";
 							while ($plano = $planos->fetch_object()):
 							?>
-							<option value='<?=$plano->idPlano?>'><?=utf8_encode($plano->nome)?></option>
+							<option value='<?=$plano->idPlano?>'><?=$plano->nome?></option>
 							<?php endwhile; ?>
 						</select>
 					</div>

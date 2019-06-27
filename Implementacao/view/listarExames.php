@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Listar Pacientes</title>
+	<title>Listar exames</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/table.css">
@@ -42,19 +42,33 @@
 <body>
 	<?php require_once("sidebar.php");?>
 	<div class="filtro">
-		<h1>Pesquisar pacientes</h1>
-		<form id="pesquisar" action="../controller/C_Paciente.php" method="GET">
+		<h1>Pesquisar exames</h1>
+		<form id="pesquisar" action="../controller/C_Exame.php" method="GET">
 			<input type="hidden" name="acao" value="consultar">
 			<div class="item">
-				<p>Nome:</p>
+				<p>Tipo:</p>
 				<div class="entrada">
-					<input type="text" class="form-control" name="nome" placeholder="Digite um nome para buscar">
+					<input type="text" class="form-control" name="tipo" id="tipo">
 				</div>
 			</div>
 			<div class="item">
-				<p>Cpf:</p>
+				<p>Data inicial:</p>
 				<div class="entrada">
-					<input type="text" class="form-control" name="cpf" placeholder="Digite um cpf para buscar">
+					<input type="datetime-local" name="dataInicial" class="form-control">
+				</div>
+			</div>
+			<div class="item">
+				<p>Data final:</p>
+				<div class="entrada">
+					<input type="datetime-local" name="dataFinal" class="form-control">
+				</div>
+			</div>
+			<div class="item">
+				<p>Consulta:</p>
+				<div class="entrada">
+					<select class="form-control" name="idConsulta" id="consulta">
+						<option value>Todos</option>
+					</select>
 				</div>
 			</div>
 			<div class="item">
@@ -65,16 +79,14 @@
 		</form>
 	</div>
 	<div class="container">
-		<h1>Listar pacientes - <i class="fas fa-search" style="font-size:20px;cursor:pointer;" onclick="abrirFiltro();"></i></h1>
+		<h1>Listar exames - <i class="fas fa-search" style="font-size:20px;cursor:pointer;" onclick="abrirFiltro();"></i></h1>
 		<table class="tabelaVisao">
 			<thead>
 				<tr>
 					<th>Id</th>
-					<th>Nome</th>
-					<th>CPF</th>
-					<th>Endereço</th>
-					<th>Data de Nascimento</th>
-					<th>Plano</th>
+					<th>Tipo</th>
+					<th>Data</th>
+					<th>Informação consulta</th>
 					<th>Editar</th>
 					<th>Excluir</th>
 				</tr>
@@ -86,6 +98,26 @@
 	<?php require_once("fimSidebar.php")?>
 </body>
 <script type="text/javascript">
+	$(document).ready(function()
+	{
+		let url = "../controller/C_Consulta.php";
+		let dados = {
+			acao: 'consultar'
+		};
+		$.ajax({
+			url : url,
+			data: dados,
+			type: 'GET',
+			dataType: 'JSON',
+			success: function(exames)
+			{
+				exames.forEach(function(consulta)
+				{
+					$("#consulta").append("<option value='"+consulta.idConsulta+"'>"+consulta.idConsulta+" - "+consulta.nomeMedico+" - "+consulta.data +"</option>");
+				})
+			}
+		});
+	});
 	function abrirFiltro()
 	{
 		$(".container").hide();
@@ -104,19 +136,17 @@
 			data: dados,
 			type: 'GET',
 			dataType: 'JSON',
-			success: function(pacientes)
+			success: function(exames)
 			{
-				pacientes.forEach(function(paciente)
+				exames.forEach(function(exame)
 				{
 					$(".tabelaVisao tbody").append("<tr>"+
-						"<td>"+paciente.idPaciente+"</td>"+
-						"<td>"+paciente.nome+"</td>"+
-						"<td>"+paciente.cpf+"</td>"+
-						"<td>"+paciente.endereco+"</td>"+
-						"<td>"+paciente.dataNascimento+"</td>"+
-						"<td>"+paciente.nomePlano+"</td>"+
-						"<td><center onclick='abrirPopup(\"alterarPaciente.php?idPaciente="+paciente.idPaciente+"\", 750, 550)' style='cursor:pointer;'><i class='fas fa-edit'></i></center></td>"+
-						"<td><center style='cursor:pointer;' onclick='deletarPaciente("+paciente.idPaciente+")'><i class='fas fa-trash-alt'></i></center></td>"+
+						"<td>"+exame.idExame+"</td>"+
+						"<td>"+exame.tipo+"</td>"+
+						"<td>"+exame.data+"</td>"+
+						"<td>"+exame.idConsulta+" - "+exame.nomeMedico+" - "+exame.nomePaciente+" - "+exame.dataConsulta+"</td>"+
+						"<td><center onclick='abrirPopup(\"alterarExame.php?idExame="+exame.idExame+"\", 750, 550)' style='cursor:pointer;'><i class='fas fa-edit'></i></center></td>"+
+						"<td><center style='cursor:pointer;' onclick='deletarExame("+exame.idExame+")'><i class='fas fa-trash-alt'></i></center></td>"+
 						"</tr>"
 						);
 				});
@@ -127,7 +157,7 @@
 	{
 		var myWindow = window.open(url, "", "width="+width+",height="+height+",left="+((screen.width/2)-(width/2))+",top="+((screen.height/2)-(height/2)));
 	}
-	function deletarPaciente(idPaciente)
+	function deletarExame(idExame)
 	{
 		Swal.fire({
 			title: "Tem certeza que deseja realizar essa ação?",
@@ -140,10 +170,10 @@
 		{
 			if(res.value)
 			{
-				let url = "../controller/C_Paciente.php";
+				let url = "../controller/C_Exame.php";
 				let dados = {
 					acao: "deletar",
-					idPaciente: idPaciente
+					idExame: idExame
 				};
 				$.ajax({
 					url : url,

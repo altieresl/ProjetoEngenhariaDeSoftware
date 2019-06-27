@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Cadastrar Departamento</title>
+	<title>Alterar paciente</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/table.css">
@@ -9,18 +9,27 @@
 	<script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
 	<script src="js/sweetalert2@8.js"></script>
 	<style type="text/css">
+		.especifico
+		{
+			display: none;
+		}
+		.container
+		{
+			margin: auto;
+			margin-top: 50px;
+		}
 	</style>
 </head>
 <body>
-	<?php require_once("sidebar.php")?>
 	<div class="container">
-		<h1>Preencha os dados do departamento</h1>
-		<form action="../controller/C_Departamento.php" method="POST" id="cadastrar">
+		<h1>Preencha os dados da consulta</h1>
+		<form action="../controller/C_Departamento.php" method="POST" id="alterar">
+			<input type="hidden" name="idDepartamento" value="<?=$_GET['idDepartamento']?>">
 			<input type="hidden" name="acao" value="setDepartamento">
 			<div class="item">
 				<p>Nome:</p>
 				<div class="divCampo">
-					<input type="text" name="nome" class="form-control">
+					<input type="text" name="nome" id="nome" class="form-control">
 				</div>
 			</div>
 			<div class="item">
@@ -31,11 +40,10 @@
 				</div>
 			</div>
 			<div class="right">
-				<button type="submit" class="btn btn-info">Cadastrar</button>
+				<button type="submit" class="btn btn-info">Alterar</button>
 			</div>
 		</form>
 	</div>
-	<?php require_once("fimSidebar.php")?>
 </body>
 <script type="text/javascript">
 	$(document).ready(function()
@@ -57,30 +65,30 @@
 				})
 			}
 		});
+
+		url = "../controller/C_Departamento.php";
+		dados = {
+			acao: 'getInfoDepartamento',
+			idDepartamento: <?=$_GET['idDepartamento']?>
+		};
+		$.ajax({
+			url : url,
+			data: dados,
+			type: 'GET',
+			dataType: 'JSON',
+			success: function(res)
+			{
+				$("#nome").val(res.nome);
+				$("#clinica").val(res.idClinica);
+			}
+		});
+
 	});
-	$("#cadastrar").submit(function(e)
+	$("#alterar").submit(function(e)
 	{
 		e.preventDefault();
-		let campoObrigatorioInvalido = false;
-		$(".campo-obrigatorio").each(function()
-		{
-			if($(this).val().trim() == "")
-			{
-				if(!campoObrigatorioInvalido)
-					$(this).focus();
-				campoObrigatorioInvalido = true;
-			}
-		})
-		if(campoObrigatorioInvalido)
-		{
-			Swal.fire({
-				title: "Preencha todos os campos obrigatórios.",
-				type: 'error',
-				confirmButtonColor: '#0092be'
-			});
-		}
-		let url = $(this).attr("action");
 		let dados = $(this).serializeArray();
+		let url = $(this).attr("action");
 		$.ajax({
 			url : url,
 			data: dados,
@@ -92,6 +100,10 @@
 					title: res.mensagem,
 					type: (res.status) ? 'success' : 'error',
 					confirmButtonColor: '#0092be'
+				}).then(function()
+				{
+					opener.window.location.reload();
+					window.close();
 				});
 			}
 		});

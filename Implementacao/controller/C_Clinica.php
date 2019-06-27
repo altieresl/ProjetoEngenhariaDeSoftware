@@ -17,5 +17,11 @@ switch ($_REQUEST["acao"])
 		}
 		print json_encode($arrClinicas);
 		break;
+	case 'getInfoClinica':
+		$objClinica = new ClinicaDao();
+		$retorno = $objClinica->getInfoClinica($_GET["idClinica"]);
+		$clinica = $retorno->fetch_object();
+		print json_encode($clinica);
+		break;
 }
 ?>

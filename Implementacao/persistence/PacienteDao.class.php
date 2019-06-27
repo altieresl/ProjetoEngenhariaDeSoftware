@@ -89,5 +89,17 @@ class PacienteDao
 		$resultado = $objDao->consultar($query);
 		return $resultado;
 	}
+
+	public function setDeletarPaciente($idPaciente)
+	{
+		require_once("../model/AssistenteServicosGerais.class.php");
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
+		$query =
+		"DELETE FROM paciente
+			WHERE idPaciente = ".$idPaciente.";";
+		// die("<pre>$query</pre>");
+		$resultado = $objDao->multiQuery($query);
+		return $resultado;
+	}
 }
 ?>

@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(!$_SESSION['usuario'])
+	header("location:login.php");
+$tipo = (int)$_SESSION["tipo"];
+$nome = $_SESSION["nome"];
+?>
 <link href="https://fonts.googleapis.com/css?family=Merriweather:400,700,700i,900" rel="stylesheet">
 <style type="text/css">
 *
@@ -73,7 +80,6 @@ aside nav a:hover
 }
 header nav
 {
-	width: 300px;
 	position: absolute;
 	right: 0;
 	bottom: 5px;
@@ -128,41 +134,50 @@ header nav a:hover
 			</div>
 			<!-- <img src="http://www.hospitaldabaleia.org.br/portal/images/logo.png"> -->
 		</a>
+		<h6 style="float: right;">Bem vindo, <?=$nome?></h6>
 		<nav>
 			<a href="/">Página inicial</a>
-			<a href="">Contato</a>
-			<a href="">Sobre</a>
+			<a href="logoff.php">Sair</a>
 		</nav>
 	</div>
 </header>
 <aside>
 	<nav>
-		<div class="subtopico">
-			Funcionários
-		</div>
+		<?php if(in_array($tipo, [3])): ?>
+		<div class="subtopico">Funcionários</div>
 		<a href="cadastrarFuncionario.php">Cadastrar Funcionário</a>
 		<a href="listarFuncionarios.php">Listar Funcionários</a>
-		<div class="subtopico">
-			Pacientes
-		</div>
+		<?php endif; ?>
+
+		<?php if(in_array($tipo, [1, 3, 4])): ?>
+		<div class="subtopico">Pacientes</div>
 		<a href="cadastrarPaciente.php">Cadastrar Paciente</a>
 		<a href="listarPacientes.php">Listar Pacientes</a>
-		<div class="subtopico">
-			Consultas
-		</div>
+		<?php endif; ?>
+
+		<?php if(in_array($tipo, [1, 3, 2, 4])): ?>
+		<div class="subtopico">Consultas</div>
 		<a href="marcarConsulta.php">Marcar Consulta</a>
 		<a href="listarConsultas.php">Listar Consultas</a>
-		<div class="subtopico">
-			Clínicas
-		</div>
+		<?php endif; ?>
+
+		<?php if(in_array($tipo, [1, 2, 3, 4])): ?>
+		<div class="subtopico">Exames</div>
+		<a href="marcarExame.php">Marcar Exame</a>
+		<a href="listarExames.php">Listar Exames</a>
+		<?php endif; ?>
+
+		<!-- <?php if(in_array($tipo, [3])): ?>
+		<div class="subtopico">Clínicas</div>
 		<a href="cadastrarClinica.php">Cadastrar Clínica</a>
 		<a href="listarClinicas.php">Listar Clínicas</a>
-		<div class="subtopico">
-			Departamentos
-		</div>
+		<?php endif; ?> -->
+
+		<?php if(in_array($tipo, [3])): ?>
+		<div class="subtopico">Departamentos</div>
 		<a href="cadastrarDepartamento.php">Cadastrar Departamento</a>
 		<a href="listarDepartamentos.php">Listar Departamentos</a>
-
+		<?php endif; ?>
 	</nav>
 	<div id="copyright">
 		Copyright 2019 &copy;

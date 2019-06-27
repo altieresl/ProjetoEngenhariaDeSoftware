@@ -30,11 +30,27 @@ switch ($_REQUEST["acao"])
 		$objConsultaDao = new ConsultaDao();
 		$retorno = $objConsultaDao->getConsultas($_GET["idMedico"], $_GET["idPaciente"], $_GET["dataInicial"], $_GET["dataFinal"]);
 		$arrConsultas = array();
-		while($paciente = $retorno->fetch_object())
+		while($consulta = $retorno->fetch_object())
 		{
-			$arrConsultas[] = $paciente;
+			$arrConsultas[] = $consulta;
 		}
 		print json_encode($arrConsultas);
+		break;
+	case 'getInfoConsulta':
+		$objConsulta = new ConsultaDao();
+		$retorno = $objConsulta->getInfoConsulta($_GET["idConsulta"]);
+		$consulta = $retorno->fetch_object();
+		print json_encode($consulta);
+		break;
+	case 'deletar':
+		$objConsulta = new ConsultaDao();
+		$retorno = $objConsulta->setDeletarConsulta($_POST["idConsulta"]);
+		if($retorno)
+		{
+			$resultado->status = true;
+			$resultado->mensagem = "Operação realizada com sucesso.";
+		}
+		print json_encode($resultado);
 		break;
 }
 ?>

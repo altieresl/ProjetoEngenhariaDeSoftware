@@ -18,6 +18,8 @@ class FuncionarioDao {
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		if($medico->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
+			$login = strtolower(explode(" ", $medico->getNome())[0]).date('H');
+			$senha = hash('sha256', strrev($login));
 			$query = 
 			"INSERT INTO funcionario (nome, salario, idDepartamento)
 				VALUES
@@ -28,6 +30,8 @@ class FuncionarioDao {
 				VALUES
 					('".$medico->getEspecializacao()."',
 					LAST_INSERT_ID());
+			INSERT INTO usuario (login, senha, idFuncionario)
+				VALUES('".$login."', '".$senha."', LAST_INSERT_ID());
 			";
 		}else//Caso não seja nulo atualizamos o registro atual com o tal id do funcionário
 		{
@@ -41,6 +45,7 @@ class FuncionarioDao {
 				WHERE idFuncionario = ".$medico->getIdFuncionario()."
 				";
 		}
+		// die("<pre>$query</pre>");
 		$resultado = $objDao->multiQuery($query);
 		return $resultado;
 	}
@@ -55,6 +60,8 @@ class FuncionarioDao {
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		if($enfermeiro->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
+			$login = strtolower(explode(" ", $enfermeiro->getNome())[0]);
+			$senha = hash('sha256', strrev($login));
 			$query = 
 			"INSERT INTO funcionario (nome, salario, idDepartamento)
 				VALUES
@@ -65,6 +72,8 @@ class FuncionarioDao {
 				VALUES
 					('".$enfermeiro->getAla()."',
 					LAST_INSERT_ID());
+			INSERT INTO usuario (login, senha, idFuncionario)
+				VALUES('".$login."', '".$senha."', LAST_INSERT_ID());
 			";
 		}else//Caso não seja nulo atualizamos o registro atual com o tal id do funcionário
 		{
@@ -93,6 +102,8 @@ class FuncionarioDao {
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		if($tecnicoAdministrativo->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
+			$login = strtolower(explode(" ", $tecnicoAdministrativo->getNome())[0]);
+			$senha = hash('sha256', strrev($login));
 			$query = 
 			"INSERT INTO funcionario (nome, salario, idDepartamento)
 				VALUES
@@ -103,6 +114,8 @@ class FuncionarioDao {
 				VALUES
 					('".$tecnicoAdministrativo->getSetor()."',
 					LAST_INSERT_ID());
+			INSERT INTO usuario (login, senha, idFuncionario)
+				VALUES('".$login."', '".$senha."', LAST_INSERT_ID());
 			";
 		}else//Caso não seja nulo atualizamos o registro atual com o tal id do funcionário
 		{
@@ -132,6 +145,8 @@ class FuncionarioDao {
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
 		if($assistenteServicosGerais->getIdFuncionario() == NULL)//Se o id do funcionário é nulo significa que inseriremos um novo
 		{
+			$login = strtolower(explode(" ", $assistenteServicosGerais->getNome())[0]);
+			$senha = hash('sha256', strrev($login));
 			$query = 
 			"INSERT INTO funcionario (nome, salario, idDepartamento)
 				VALUES
@@ -142,6 +157,8 @@ class FuncionarioDao {
 				VALUES
 					('".$assistenteServicosGerais->getFuncao()."',
 					LAST_INSERT_ID());
+			INSERT INTO usuario (login, senha, idFuncionario)
+				VALUES('".$login."', '".$senha."', LAST_INSERT_ID());
 			";
 		}else//Caso não seja nulo atualizamos o registro atual com o tal id do funcionário
 		{
@@ -155,6 +172,7 @@ class FuncionarioDao {
 				WHERE idFuncionario = ".$assistenteServicosGerais->getIdFuncionario()."
 				";
 		}
+		// die("<pre>$query</pre>");
 		$resultado = $objDao->multiQuery($query);
 		return $resultado;
 	}

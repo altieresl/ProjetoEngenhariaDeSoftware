@@ -25,7 +25,7 @@ class ConsultaDao
 			";
 		}else
 		{
-			$query = "UPDATE paciente
+			$query = "UPDATE consulta
 				SET idMedico = ".$consulta->getIdMedico().",
 					idPaciente = ".$consulta->getIdPaciente().",
 					idClinica = ".$consulta->getIdClinica().",
@@ -68,6 +68,36 @@ class ConsultaDao
 		}
 		// die("<pre>$query</pre>");
 		$resultado = $objDao->consultar($query);
+		return $resultado;
+	}
+
+	public function getInfoConsulta($idConsulta)
+	{
+		require_once("../model/AssistenteServicosGerais.class.php");
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
+		$query = 
+		"SELECT
+				consulta.idConsulta,
+				consulta.idMedico,
+				consulta.idPaciente,
+				consulta.idClinica,
+				consulta.data
+			FROM consulta consulta
+			WHERE consulta.idConsulta = ".$idConsulta.";";
+		// die("<pre>$query</pre>");
+		$resultado = $objDao->consultar($query);
+		return $resultado;
+	}
+
+	public function setDeletarConsulta($idConsulta)
+	{
+		require_once("../model/AssistenteServicosGerais.class.php");
+		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);//Constantes incluidas no arquivo app.config.php
+		$query =
+		"DELETE FROM consulta
+			WHERE idConsulta = ".$idConsulta.";";
+		// die("<pre>$query</pre>");
+		$resultado = $objDao->multiQuery($query);
 		return $resultado;
 	}
 }

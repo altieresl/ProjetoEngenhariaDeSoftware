@@ -123,9 +123,9 @@
 	<div id='container'>
 		<img src="imgs/logo3.png" style="max-width: 380px;margin-bottom: 10px;">
 		<h3 style="margin-bottom:10px;">Bem vindo(a)</h3>
-		<form id='formulario' method="POST" action="especialista_interface.php">
+		<form id='formulario' method="POST" action="../controller/C_Login.php">
 			<input type="hidden" name="acao" value='logar'>
-			<input type='text' class='form-control' name='loginzzz' placeholder="Login" id='login'>
+			<input type='text' class='form-control' name='login' placeholder="Login" id='login'>
 			<label class="loginLabel" for='login'>Login</label>
 			<input type='password' class='form-control' name='senha' placeholder="Senha" id='senha'>
 			<label class="senhaLabel" for='senha'>Senha</label>
@@ -155,9 +155,9 @@
 				dataType: "json",
 				success: function(res)
 				{
-					if(res.status == "success")
+					if(res.status)
 					{
-						window.location.href = "home.php";
+						window.location.href = "/";
 					}else
 					{
 						$(".retLog").show();

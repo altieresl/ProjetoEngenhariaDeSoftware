@@ -69,6 +69,11 @@ switch ($_REQUEST["acao"])
 		{
 			$resultado->status = true;
 			$resultado->mensagem = "Operação realizada com sucesso.";
+		}else
+		{
+			$resultado = new StdClass();
+			$resultado->status = false;
+			$resultado->mensagem = "Erro ao realizar operação.";
 		}
 		print json_encode($resultado);
 		break;
@@ -79,9 +84,9 @@ switch ($_REQUEST["acao"])
 		while($funcionario = $retorno->fetch_object())
 		{
 			$funcionario->nomeFuncionario = $funcionario->nomeFuncionario;
-			$funcionario->nomeDepartamento = utf8_encode($funcionario->nomeDepartamento);
 			$arrFuncionarios[] = $funcionario;
 		}
+		// var_dump($arrFuncionarios);
 		print json_encode($arrFuncionarios);
 		break;
 	case 'getInfoFuncionario':

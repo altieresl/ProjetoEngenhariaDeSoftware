@@ -39,9 +39,18 @@ switch ($_REQUEST["acao"])
 	case 'getInfoPaciente':
 		$objPacienteDao = new PacienteDao();
 		$retorno = $objPacienteDao->getInfoPaciente($_GET["idPaciente"]);
-		$arrPacientes = array();
 		$paciente = $retorno->fetch_object();
 		print json_encode($paciente);
+		break;
+	case 'deletar':
+		$objPacienteDao = new PacienteDao();
+		$retorno = $objPacienteDao->setDeletarPaciente($_POST["idPaciente"]);
+		if($retorno)
+		{
+			$resultado->status = true;
+			$resultado->mensagem = "Operação realizada com sucesso.";
+		}
+		print json_encode($resultado);
 		break;
 }
 ?>

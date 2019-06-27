@@ -47,7 +47,7 @@
 			<input type="hidden" name="acao" value="consultar">
 			<div class="item">
 				<p>Médico:</p>
-				<div class="divCampo">
+				<div class="entrada">
 					<select class="form-control" name="idMedico" id="medico">
 						<option value="">Todos</option>
 					</select>
@@ -55,7 +55,7 @@
 			</div>
 			<div class="item">
 				<p>Paciente:</p>
-				<div class="divCampo">
+				<div class="entrada">
 					<select class="form-control" name="idPaciente" id="paciente">
 						<option value="">Todos</option>
 					</select>
@@ -63,13 +63,13 @@
 			</div>
 			<div class="item">
 				<p>Data inicial:</p>
-				<div class="divCampo">
+				<div class="entrada">
 					<input type="datetime-local" name="dataInicial" class="form-control">
 				</div>
 			</div>
 			<div class="item">
 				<p>Data final:</p>
-				<div class="divCampo">
+				<div class="entrada">
 					<input type="datetime-local" name="dataFinal" class="form-control">
 				</div>
 			</div>
@@ -167,8 +167,8 @@
 						"<td>"+consulta.nomePaciente+"</td>"+
 						"<td>"+consulta.nomeClinica+"</td>"+
 						"<td>"+consulta.data+"</td>"+
-						"<td><center onclick='abrirPopup(\"alterarconsulta.php?idconsulta="+consulta.idconsulta+"\", 750, 550)' style='cursor:pointer;'><i class='fas fa-edit'></i></center></td>"+
-						"<td><center style='cursor:pointer;' onclick='deletarConsulta("+consulta.idconsulta+")'><i class='fas fa-trash-alt'></i></center></td>"+
+						"<td><center onclick='abrirPopup(\"alterarConsulta.php?idConsulta="+consulta.idConsulta+"\", 750, 550)' style='cursor:pointer;'><i class='fas fa-edit'></i></center></td>"+
+						"<td><center style='cursor:pointer;' onclick='deletarConsulta("+consulta.idConsulta+")'><i class='fas fa-trash-alt'></i></center></td>"+
 						"</tr>"
 						);
 				});
@@ -179,7 +179,7 @@
 	{
 		var myWindow = window.open(url, "", "width="+width+",height="+height+",left="+((screen.width/2)-(width/2))+",top="+((screen.height/2)-(height/2)));
 	}
-	function deletarConsulta(idFuncionario)
+	function deletarConsulta(idConsulta)
 	{
 		Swal.fire({
 			title: "Tem certeza que deseja realizar essa ação?",
@@ -192,10 +192,10 @@
 		{
 			if(res.value)
 			{
-				let url = "../controller/C_Funcionario.php";
+				let url = "../controller/C_Consulta.php";
 				let dados = {
 					acao: "deletar",
-					idFuncionario: idFuncionario
+					idConsulta: idConsulta
 				};
 				$.ajax({
 					url : url,
