@@ -2,57 +2,56 @@
 <html>
 <head>
 	<title>Cadastrar Paciente</title>
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<link rel="stylesheet" type="text/css" href="css/table.css">
+	<link rel="stylesheet" type="text/css" href="css/all.css">
+	<script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
+	<script src="js/sweetalert2@8.js"></script>
 	<style type="text/css">
-		.caracteristicaEspecializacaoFuncionario
-		{
-			display: none;
-		}
 	</style>
 </head>
 <body>
 	<?php require_once("sidebar.php")?>
 		<div class="container">
 			<h1>Preencha os dados do paciente</h1>
-			<form id="cadastrar" method="POST" action="cadastrarPacienteInterface.php">
+			<form id="cadastrar" method="POST" action="../controller/C_Paciente.php">
+				<input type="hidden" name="acao" value="setPaciente">
 				<div class="item">
-					<p>Nome:</p>
+					<p>Nome: <span class="obrigatorio">*</span></p>
 					<div class="divCampo">
-						<input type="text" name="nome" class="form-control">
+						<input type="text" name="nome" class="form-control campo-obrigatorio">
 					</div>
 				</div>
 				<div class="item">
-					<p>Data de nascimento:</p>
+					<p>Cpf: <span class="obrigatorio">*</span></p>
 					<div class="divCampo">
-						<input type="datetime-local" name="dataNascimento" class="form-control">
+						<input type="text" name="cpf" class="form-control campo-obrigatorio">
 					</div>
 				</div>
 				<div class="item">
-					<p>Naturalidade:</p>
+					<p>Data de nascimento: <span class="obrigatorio">*</span></p>
 					<div class="divCampo">
-						<input type="text" name="naturalidade" class="form-control">
+						<input type="date" name="dataNascimento" class="form-control campo-obrigatorio">
 					</div>
 				</div>
 				<div class="item">
-					<p>Telefone:</p>
+					<p>Endereço: <span class="obrigatorio">*</span></p>
 					<div class="divCampo">
-						<input type="text" name="telefone" class="form-control">
+						<input type="text" name="endereco" class="form-control campo-obrigatorio">
 					</div>
 				</div>
 				<div class="item">
-					<p>Plano:</p>
+					<p>Plano: <span class="obrigatorio">*</span></p>
 					<div class="divCampo">
-						<select name="plano" class="form-control">
+						<select name="plano" class="form-control campo-obrigatorio">
 							<?php
-							require_once("classes/dao/PlanosDao.class.php");
+							require_once("../persistence/PlanosDao.class.php");
 							$planos = PlanosDao::getPlanos();
 							$htmlPlanos = "";
 							while ($plano = $planos->fetch_object()):
 							?>
-							<option value='<?=$plano->cod?>'><?=$plano->nome?></option>
+							<option value='<?=$plano->idPlano?>'><?=utf8_encode($plano->nome)?></option>
 							<?php endwhile; ?>
 						</select>
 					</div>
@@ -68,23 +67,40 @@
 $("#cadastrar").submit(function(e)
 {
 	e.preventDefault();
-	Swal.fire({
-	  title: 'Entrada inválida.',
-	  type: 'warning',
-	  // showCancelButton: true,
-	  confirmButtonColor: '#3085d6',
-	  cancelButtonColor: '#d33',
-	  // confirmButtonText: 'Yes, delete it!'
-	}).then((result) => {
-	  if (result.value) {
-	    Swal.fire(
-	      'Deleted!',
-	      'Your file has been deleted.',
-	      'success'
-	    )
-	  }
+	let campoObrigatorioInvalido = false;
+	$(".campo-obrigatorio").each(function()
+	{
+		if($(this).val().trim() == "")
+		{
+			if(!campoObrigatorioInvalido)
+				$(this).focus();
+			campoObrigatorioInvalido = true;
+		}
 	})
+	if(campoObrigatorioInvalido)
+	{
+		Swal.fire({
+			title: "Preencha todos os campos obrigatórios.",
+			type: 'error',
+			confirmButtonColor: '#0092be'
+		});
+	}
+	let url = $(this).attr("action");
+	let dados = $(this).serializeArray();
+	$.ajax({
+		url : url,
+		data: dados,
+		type: 'POST',
+		dataType: 'JSON',
+		success: function(res)
+		{
+			Swal.fire({
+				title: res.mensagem,
+				type: (res.status) ? 'success' : 'error',
+				confirmButtonColor: '#0092be'
+			});
+		}
+	});
 });
-
 </script>
 </html>

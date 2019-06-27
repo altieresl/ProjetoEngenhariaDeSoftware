@@ -1,7 +1,12 @@
 <?php 
-ini_set('display_errors', 1);ini_set('display_startup_errors', 1);error_reporting(E_ALL);
+// ini_set('display_errors', 1);ini_set('display_startup_errors', 1);error_reporting(E_ALL);
 require_once("../persistence/FuncionarioDao.class.php");
-switch ($_REQUEST["acao"]) {
+require_once("utility/TratamentoCaracteres.class.php");
+
+TratamentoCaracteres::limparStringsRequests();
+
+switch ($_REQUEST["acao"])
+{
 	case 'setFuncionario':
 		$retorno = false;
 		switch ($_POST["tipoFuncionario"])//Para cada tipo de funcionário a ação é diferente
@@ -64,10 +69,6 @@ switch ($_REQUEST["acao"]) {
 		{
 			$resultado->status = true;
 			$resultado->mensagem = "Operação realizada com sucesso.";
-		}else
-		{
-			$resultado->status = false;
-			$resultado->mensagem = "Erro ao realizar operação.";
 		}
 		print json_encode($resultado);
 		break;
@@ -98,10 +99,6 @@ switch ($_REQUEST["acao"]) {
 		{
 			$resultado->status = true;
 			$resultado->mensagem = "Operação realizada com sucesso.";
-		}else
-		{
-			$resultado->status = false;
-			$resultado->mensagem = "Erro ao realizar operação.";
 		}
 		print json_encode($resultado);
 		break;

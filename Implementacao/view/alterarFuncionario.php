@@ -2,10 +2,12 @@
 <html>
 <head>
 	<title>Alterar Funcionário</title>
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+	<link rel="stylesheet" type="text/css" href="css/table.css">
+	<link rel="stylesheet" type="text/css" href="css/all.css">
+	<script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
+	<script src="js/sweetalert2@8.js"></script>
 	<style type="text/css">
 		.especifico
 		{
@@ -44,7 +46,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="item">
+			<!-- <div class="item">
 				<p>Tipo de funcionário:</p>
 				<div class="divCampo">
 					<select name="tipoFuncionario" id="tipoFuncionario" class="form-control campo-obrigatorio">
@@ -55,7 +57,7 @@
 						<option value="4">Assistente de serviços gerais</option>
 					</select>
 				</div>
-			</div>
+			</div> -->
 			<div class="item especifico especificoMedico">
 				<p>Especialização:</p>
 				<div class="divCampo">
@@ -102,28 +104,28 @@
 	{
 		atualizarTipoFuncionario($(this).val());
 	});
-	function atualizarTipoFuncionario(tipo)
-	{
-		let codTipoFuncionario = parseInt(tipo);
-		$(".especifico").css('display','none');
-		switch(codTipoFuncionario)
-		{
-			case 1:
-				$(".especificoMedico").css('display','inline-block');
-				break;
-			case 2:
-				$(".especificoEnfermeiro").css('display','inline-block');
-				break;
-			case 3:
-				$(".especificoTecnicoAdministrativo").css('display','inline-block');
-				break;
-			case 4:
-				$(".especificoAssistenteServicosGerais").css('display','inline-block');
-				break;
-			default:
-				break;
-		}
-	}
+	// function atualizarTipoFuncionario(tipo)
+	// {
+	// 	let codTipoFuncionario = parseInt(tipo);
+	// 	$(".especifico").css('display','none');
+	// 	switch(codTipoFuncionario)
+	// 	{
+	// 		case 1:
+	// 			$(".especificoMedico").css('display','inline-block');
+	// 			break;
+	// 		case 2:
+	// 			$(".especificoEnfermeiro").css('display','inline-block');
+	// 			break;
+	// 		case 3:
+	// 			$(".especificoTecnicoAdministrativo").css('display','inline-block');
+	// 			break;
+	// 		case 4:
+	// 			$(".especificoAssistenteServicosGerais").css('display','inline-block');
+	// 			break;
+	// 		default:
+	// 			break;
+	// 	}
+	// }
 	$(document).ready(function()
 	{
 		let url = "../controller/C_Departamento.php";

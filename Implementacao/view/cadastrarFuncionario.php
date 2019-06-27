@@ -4,6 +4,8 @@
 	<title>Cadastrar Funcionário</title>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/table.css">
+	<link rel="stylesheet" type="text/css" href="css/all.css">
 	<script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>
 	<script src="js/sweetalert2@8.js"></script>
 	<style type="text/css">
@@ -17,7 +19,7 @@
 	<?php require_once("sidebar.php")?>
 	<div class="container">
 		<h1>Preencha os dados do funcionário</h1>
-		<form action="../controller/C_Funcionario.php" method="POST" id="formFuncionario">
+		<form action="../controller/C_Funcionario.php" method="POST" id="cadastrar">
 			<input type="hidden" name="acao" value="setFuncionario">
 			<div class="item">
 				<p>Nome: <span class="obrigatorio">*</span></p>
@@ -138,7 +140,7 @@
 				break;
 		}
 	});
-	$("#formFuncionario").submit(function(e)
+	$("#cadastrar").submit(function(e)
 	{
 		e.preventDefault();
 		let campoObrigatorioInvalido = false;

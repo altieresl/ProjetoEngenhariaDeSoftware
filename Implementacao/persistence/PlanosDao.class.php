@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 1);ini_set('display_startup_errors', 1);error_reporting(E_ALL);
+// ini_set('display_errors', 1);ini_set('display_startup_errors', 1);error_reporting(E_ALL);
 require_once("app.config.php");
 require_once("ConexaoDao.class.php");
 class PlanosDao
@@ -10,7 +10,7 @@ class PlanosDao
 		$sql = "
 		SELECT
 				*
-			FROM t_planos";
+			FROM plano";
 		// die("<pre>$sql</pre>");
 		$ret = $objDao->consultar($sql);
 		$objDao->fecharConexao();

@@ -7,6 +7,7 @@ class ConexaoDao
 	private function __construct($host, $user, $pass, $db)
 	{
 		$this->obj = mysqli_connect($host, $user, $pass, $db) or die("Erro ao conectar ao banco de dados.");
+		$this->obj->set_charset("utf8");
 	}
 
 	public static function getInstance($host, $user, $pass, $db)

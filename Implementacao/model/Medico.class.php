@@ -3,7 +3,7 @@ require_once("Funcionario.class.php");
 class Medico extends Funcionario{
 	private $especializacao;
 
-	public function __construct($idFuncionario = NULL, $nome, $salario, $idDepartamento, $especializacao)
+	public function __construct($idFuncionario, $nome, $salario, $idDepartamento, $especializacao)
 	{
 		parent::__construct($idFuncionario, $nome, $salario, $idDepartamento);
 		$this->especializacao = $especializacao;
