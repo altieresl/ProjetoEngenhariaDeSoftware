@@ -9,11 +9,10 @@ switch ($_REQUEST["acao"])
 {
 	case 'setPaciente':
 		require_once("../model/Paciente.class.php");
-		$objMedico = new Paciente($_POST['idPaciente'], $_POST["nome"], $_POST["dataNascimento"], $_POST["endereco"], $_POST["cpf"], $_POST["plano"]);
-		$objPaciente = new PacienteDao();
+		$objPaciente = new Paciente($_POST['idPaciente'], $_POST["nome"], $_POST["dataNascimento"], $_POST["endereco"], $_POST["cpf"], $_POST["plano"]);
+		$objPacienteDao = new PacienteDao();
 		try {
-			$retorno = $objPaciente->setPaciente($objMedico);
-			$resultado = new StdClass();
+			$retorno = $objPacienteDao->setPaciente($objPaciente);
 		} catch (Exception $e){
 			$resultado = new StdClass();
 			$resultado->status = false;
