@@ -7,7 +7,7 @@ class PacienteDao
 {
 	public function setPaciente(Paciente $paciente)
 	{
-		require_once("../model/Medico.class.php");
+		require_once("../model/Paciente.class.php");
 		$objDao = ConexaoDao::getInstance(hostDb1, userDb1, passDb1, nameDb1);
 		if($paciente->getIdPaciente() == NULL)
 		{
