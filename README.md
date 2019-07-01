@@ -32,3 +32,6 @@ Projetar um sistema integrado que possibilitará a empresa um aumento na produti
 - PHP 7.2
 - MYSQL
 - Javascript
+
+### Padrão de comentários
+- Os comentários inseridos no projeto devem ser gerados usando a ferramenta PHPDoc (phpdoc.org).
