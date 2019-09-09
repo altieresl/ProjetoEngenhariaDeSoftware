@@ -1,1 +1,1 @@
-Diretório onde se localiza a parte implementada do projeto.
+Diretório onde se localizam os diagramas do projeto.
